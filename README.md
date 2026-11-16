@@ -1,18 +1,28 @@
-# Video Scene Tool Picker
+# Code Video Scene Tool Picker
 
-![Video Scene Tool Picker](assets/banner.jpg)
+![Code Video Scene Tool Picker](assets/banner.jpg)
 
-> Pick the right code-based animation tool for each scene of your video, so you never reach for a heavy tool when a simple one works.
+> One decision table, seven firm rules: the simplest code-based animation tool for every scene of your video, and every frame identical every time you render it.
 
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 ![Claude Code skill](https://img.shields.io/badge/Claude%20Code-skill-blueviolet)
 ![Default: HyperFrames](https://img.shields.io/badge/default-HyperFrames-informational)
 
-**Contents:** [Why](#why-this-exists) · [Decision tree](#decision-tree) · [Decision table](#decision-table) · [Examples](#examples) · [Rules](#rules) · [Why deterministic](#why-deterministic) · [Requirements](#requirements) · [Install](#install) · [Example prompts](#example-prompts) · [Example conversation](#example-conversation) · [FAQ](#faq) · [Limitations](#limitations) · [Credits](#credits) · [License](#license)
+**Contents:** [Why](#why-this-exists) · [What makes it different](#what-makes-it-different) · [Decision tree](#decision-tree) · [Decision table](#decision-table) · [Examples](#examples) · [Rules](#rules) · [Why deterministic](#why-deterministic) · [Requirements](#requirements) · [Install](#install) · [Example prompts](#example-prompts) · [Example conversation](#example-conversation) · [FAQ](#faq) · [Limitations](#limitations) · [Credits](#credits) · [License](#license)
 
 ## Why this exists
 
 Code-driven video offers many tools, and choosing wrongly wastes hours: a physics engine for a simple fall, a 3D engine for a flat chart, a particle system where an overlay would do. This skill gives Claude one decision table and a few firm rules, so every scene gets the simplest tool that works.
+
+## What makes it different
+
+These are the author's own rules, found by building code-driven videos:
+
+- **Simplest tool first.** HyperFrames is the default. Physics, 3D and particle engines are only for scenes that truly need them, which keeps previews light.
+- **One tool per scene.** Tools mix in one video, but each scene gets exactly one, so nothing is built twice.
+- **Deterministic by design.** Every frame is a pure function of time: no clock reads, no unseeded randomness, no network. Any frame can be requested at any moment and always looks the same.
+- **Preview before render.** Rendering is expensive, so you decide when it happens.
+- **Installs on demand.** The skill checks what is installed and asks before installing only what a scene needs.
 
 ## Decision tree
 
@@ -79,22 +89,24 @@ Every frame is drawn as a pure function of time (the `hf-seek` event's `e.detail
 
 ## Requirements
 
-| Needed | For |
-|---|---|
-| HyperFrames | The main composition (always) |
-| Manim (Python) | Formula scenes |
-| LaTeX | Formula typesetting (`MathTex`) in Manim; ask the user before using it if LaTeX is not installed |
-| PixiJS, Rapier, Three.js | Particle, physics and 3D scenes |
+Everything below is checked on the first run, and the skill offers to install only what a scene needs (it always asks first).
+
+| Needed | For | How it is set up |
+|---|---|---|
+| Node.js and HyperFrames | The main composition (always) | Install Node.js, then `npx hyperframes` |
+| Manim (Python) | Formula scenes | `pip install manim` |
+| LaTeX | Formula typesetting (`MathTex`) in Manim | Ask first; text and shapes work without it |
+| PixiJS, Rapier, Three.js | Particle, physics and 3D scenes | Install once with npm in a shared tools folder, copy the built file into the project's `lib/` |
 
 Versions this skill was tested with (check the current releases before relying on them): Three.js 0.187, PixiJS 8.23, Rapier 0.21 (the `-compat` npm build), HyperFrames CLI 0.9, Manim 0.22. Install the libraries once in a shared tools folder and copy the library's built JavaScript file into each project's `lib/` folder, so projects load nothing from the network.
 
 ## Install
 
 ```bash
-git clone https://github.com/jenny-gecglr/video-scene-tool-picker.git ~/.claude/skills/video-scene-tool-picker
+git clone https://github.com/jenny-gecglr/code-video-scene-tool-picker.git ~/.claude/skills/code-video-scene-tool-picker
 ```
 
-Or download the folder and place it at `~/.claude/skills/video-scene-tool-picker`.
+Or download the folder and place it at `~/.claude/skills/code-video-scene-tool-picker`.
 
 ## Example prompts
 

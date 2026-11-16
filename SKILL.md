@@ -1,9 +1,9 @@
 ---
-name: video-scene-tool-picker
+name: code-video-scene-tool-picker
 description: Picks the right code-based animation tool for a video scene. Numbers, charts, text and transitions go to HyperFrames; formulas to Manim; explosions and particles to PixiJS; falling or colliding objects to Rapier physics; orbiting 3D models to Three.js. Use when someone asks "how should we build this scene", or mentions formula, particle, physics, 3D or chart animation.
 ---
 
-# Video Scene Tool Picker
+# Code Video Scene Tool Picker
 
 Choose one animation tool per scene. Default to the simplest tool that works.
 
@@ -16,6 +16,19 @@ Choose one animation tool per scene. Default to the simplest tool that works.
 | Explosions, particles, sparks, smoke, confetti | **PixiJS** (v8) | 2D WebGL canvas. Draw from the `hf-seek` event's `e.detail.time` (see Setup notes); use seeded randomness. |
 | Heavy objects falling, collisions, piles | **Rapier** (2D/3D physics) | Pre-compute the simulation with a fixed step (for example 1/30 s), store positions per frame, then read them by time in `hf-seek`. This keeps it deterministic. |
 | Camera orbiting a machine or model (3D) | **Three.js** | 3D canvas. Drive it from `hf-seek` and `e.detail.time` (see Setup notes); set the root composition's `data-duration` attribute (its total length). |
+
+## Setup check (first run)
+
+Before picking a tool, check what is installed. For anything missing that the chosen tool needs, say what it is and what it is for, then **ask before installing**.
+
+| Tool | Check | Install |
+|---|---|---|
+| Node.js and HyperFrames | `node --version`, `npx hyperframes --version` | Install Node.js from nodejs.org; HyperFrames runs through `npx hyperframes` |
+| Manim (only for formula scenes) | `manim --version` | `pip install manim` |
+| LaTeX (only for `MathTex` formulas) | `latex --version` | Ask first; text and shapes work without it |
+| PixiJS, Rapier, Three.js (only when a scene needs them) | the built file exists in the project's `lib/` folder | Install once in a shared tools folder with npm, then copy the built JavaScript file into `lib/` |
+
+Install a tool only when a scene actually needs it. A project that only uses HyperFrames needs nothing else.
 
 ## Rules
 
