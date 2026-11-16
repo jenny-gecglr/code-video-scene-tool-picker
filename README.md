@@ -1,6 +1,6 @@
 # Video Scene Tool Picker
 
-![Video Scene Tool Picker](assets/banner.svg)
+![Video Scene Tool Picker](assets/banner.jpg)
 
 > Pick the right code-based animation tool for each scene of your video, so you never reach for a heavy tool when a simple one works.
 
@@ -8,7 +8,7 @@
 ![Claude Code skill](https://img.shields.io/badge/Claude%20Code-skill-blueviolet)
 ![Default: HyperFrames](https://img.shields.io/badge/default-HyperFrames-informational)
 
-**Contents:** [Why](#why-this-exists) · [Decision tree](#decision-tree) · [Decision table](#decision-table) · [Examples](#examples) · [Rules](#rules) · [Why deterministic](#why-deterministic) · [Requirements](#requirements) · [Install](#install) · [Example prompts](#example-prompts) · [Example conversation](#example-conversation) · [FAQ](#faq) · [Limitations](#limitations) · [License](#license)
+**Contents:** [Why](#why-this-exists) · [Decision tree](#decision-tree) · [Decision table](#decision-table) · [Examples](#examples) · [Rules](#rules) · [Why deterministic](#why-deterministic) · [Requirements](#requirements) · [Install](#install) · [Example prompts](#example-prompts) · [Example conversation](#example-conversation) · [FAQ](#faq) · [Limitations](#limitations) · [Credits](#credits) · [License](#license)
 
 ## Why this exists
 
@@ -17,6 +17,7 @@ Code-driven video offers many tools, and choosing wrongly wastes hours: a physic
 ## Decision tree
 
 ```mermaid
+%%{init: {"theme":"base","themeVariables":{"fontFamily":"Georgia, serif","primaryColor":"#1F3026","primaryTextColor":"#C7B3A3","primaryBorderColor":"#8F8E66","lineColor":"#8F8E66","tertiaryTextColor":"#C7B3A3","edgeLabelBackground":"#1F3026"}}}%%
 flowchart LR
     S["A scene"] --> Q1{"What is in it?"}
     Q1 -- "numbers, text, charts" --> H["HyperFrames"]
@@ -25,6 +26,20 @@ flowchart LR
     Q1 -- "falling objects" --> R["Rapier"]
     Q1 -- "3D orbit" --> T["Three.js"]
     Q1 -- "anything else" --> H
+    classDef base fill:#1F3026,stroke:#8F8E66,color:#C7B3A3,stroke-width:1.5px
+    classDef ask fill:#582377,stroke:#A3787B,color:#E6D9CC,stroke-width:1.5px
+    classDef t1 fill:#C7B3A3,stroke:#8F8E66,color:#1D0C15,stroke-width:1.5px
+    classDef t2 fill:#8F8E66,stroke:#C7B3A3,color:#1D0C15,stroke-width:1.5px
+    classDef t3 fill:#A3787B,stroke:#C7B3A3,color:#1D0C15,stroke-width:1.5px
+    classDef t4 fill:#77732C,stroke:#C7B3A3,color:#F2E8DD,stroke-width:1.5px
+    classDef t5 fill:#D6C4B5,stroke:#8F8E66,color:#1D0C15,stroke-width:1.5px
+    class S base
+    class Q1 ask
+    class H t1
+    class M t2
+    class P t3
+    class R t4
+    class T t5
 ```
 
 ## Decision table
@@ -115,6 +130,10 @@ Claude: Manim for the formula, rendered as a clip and placed into the
 - It is a decision guide: it picks the tool but does not build the scene for you.
 - Formula scenes need a LaTeX install for formula typesetting.
 - Versions listed above are the ones it was tested with and may need updating.
+
+## Credits
+
+The visual identity of this repository (its color palette and art direction) is the author's own. The banner illustration was generated with Google Flow (Nano Banana) from original prompts, and the lettering was added afterwards. The title is set in Cinzel Decorative, the script line in Pinyon Script and the subtitle in Cormorant Garamond, all under the SIL Open Font License. The tool icons on the banner are simple illustrations drawn for this project, not the official logos of HyperFrames, Manim, PixiJS, Rapier or Three.js.
 
 ## License
 
