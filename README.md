@@ -1,12 +1,14 @@
 # Video Scene Tool Picker
 
+![Video Scene Tool Picker](assets/banner.svg)
+
 > Pick the right code-based animation tool for each scene of your video, so you never reach for a heavy tool when a simple one works.
 
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 ![Claude Code skill](https://img.shields.io/badge/Claude%20Code-skill-blueviolet)
 ![Default: HyperFrames](https://img.shields.io/badge/default-HyperFrames-informational)
 
-**Contents:** [Why](#why-this-exists) · [Decision tree](#decision-tree) · [Decision table](#decision-table) · [Examples](#examples) · [Rules](#rules) · [Why deterministic](#why-deterministic) · [Requirements](#requirements) · [Install](#install) · [Example prompts](#example-prompts) · [FAQ](#faq) · [Limitations](#limitations) · [License](#license)
+**Contents:** [Why](#why-this-exists) · [Decision tree](#decision-tree) · [Decision table](#decision-table) · [Examples](#examples) · [Rules](#rules) · [Why deterministic](#why-deterministic) · [Requirements](#requirements) · [Install](#install) · [Example prompts](#example-prompts) · [Example conversation](#example-conversation) · [FAQ](#faq) · [Limitations](#limitations) · [License](#license)
 
 ## Why this exists
 
@@ -15,14 +17,14 @@ Code-driven video offers many tools, and choosing wrongly wastes hours: a physic
 ## Decision tree
 
 ```mermaid
-flowchart TD
+flowchart LR
     S["A scene"] --> Q1{"What is in it?"}
-    Q1 -- "Numbers, charts, text,<br/>transitions, captions" --> H["HyperFrames"]
-    Q1 -- "Formulas, equations" --> M["Manim"]
-    Q1 -- "Explosions, particles,<br/>confetti" --> P["PixiJS"]
-    Q1 -- "Heavy objects falling<br/>or colliding" --> R["Rapier"]
-    Q1 -- "Camera orbiting a<br/>3D model" --> T["Three.js"]
-    Q1 -- "Anything else<br/>(the default)" --> H
+    Q1 -- "numbers, text, charts" --> H["HyperFrames"]
+    Q1 -- "formulas" --> M["Manim"]
+    Q1 -- "particles" --> P["PixiJS"]
+    Q1 -- "falling objects" --> R["Rapier"]
+    Q1 -- "3D orbit" --> T["Three.js"]
+    Q1 -- "anything else" --> H
 ```
 
 ## Decision table
@@ -84,6 +86,21 @@ Or download the folder and place it at `~/.claude/skills/video-scene-tool-picker
 - "How should we build this scene with an equation on screen?"
 - "I want an explosion of confetti at the end. Which tool?"
 - "This scene shows boxes falling onto a table. What do we use?"
+
+## Example conversation
+
+```text
+You:    This scene shows boxes falling onto a table. What do we use?
+Claude: Rapier. Heavy objects falling and colliding need a physics engine. I
+        will pre-compute the simulation with a fixed step (1/30 s), store the
+        positions for every frame and read them back by time, so every frame
+        stays deterministic. The captions and transitions in the same scene
+        stay in HyperFrames.
+You:    And the title card with the formula at the end?
+Claude: Manim for the formula, rendered as a clip and placed into the
+        HyperFrames composition as a muted video. Formula typesetting needs
+        LaTeX; it is not installed, so do you want me to use it anyway?
+```
 
 ## FAQ
 
