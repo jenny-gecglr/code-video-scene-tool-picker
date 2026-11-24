@@ -2,13 +2,19 @@
 
 ![Code Video Scene Tool Picker](assets/banner.jpg)
 
-> One decision table, seven firm rules: the simplest code-based animation tool for every scene of your video, and every frame identical every time you render it.
+> One decision table, seven firm rules: the simplest code-based animation tool for every scene of your video, and every frame drawn as a pure function of time.
 
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 ![Claude Code skill](https://img.shields.io/badge/Claude%20Code-skill-blueviolet)
 ![Default: HyperFrames](https://img.shields.io/badge/default-HyperFrames-informational)
 
 **Contents:** [Why](#why-this-exists) · [What makes it different](#what-makes-it-different) · [Decision tree](#decision-tree) · [Decision table](#decision-table) · [Examples](#examples) · [Rules](#rules) · [Why deterministic](#why-deterministic) · [Requirements](#requirements) · [Install](#install) · [Example prompts](#example-prompts) · [Example conversation](#example-conversation) · [FAQ](#faq) · [Limitations](#limitations) · [Credits](#credits) · [License](#license)
+
+## What's new in v1.1.0
+
+- **Readability and memory rules**, taken from our trials: text at least 28 px with contrast at least 3:1, nothing unchanged for longer than 3 seconds (a deliberate hold is marked with `data-hold`), `npm run check` must pass before a section counts as done, and close other apps before a render. They are listed in full in [SKILL.md](SKILL.md).
+- **Ready-made blocks by scene type:** a table from what is on screen to a HyperFrames registry block, with the search and install commands, in [SKILL.md](SKILL.md). The blocks are a starting point to adapt, not finished scenes.
+- **Pin the HyperFrames version** (the trials used 0.9.41) for consistent projects.
 
 ## Why this exists
 
@@ -22,6 +28,7 @@ These are the author's own rules, found by building code-driven videos:
 - **One tool per scene.** Tools mix in one video, but each scene gets exactly one, so nothing is built twice.
 - **Deterministic by design.** Every frame is a pure function of time: no clock reads, no unseeded randomness, no network. Any frame can be requested at any moment and always looks the same.
 - **Preview before render.** Rendering is expensive, so you decide when it happens.
+- **Readable by rule.** Text is at least 28 px with at least 3:1 contrast, and nothing sits unchanged for more than 3 seconds unless it is a marked hold.
 - **Installs on demand.** The skill checks what is installed and asks before installing only what a scene needs.
 
 ## Decision tree
@@ -98,7 +105,7 @@ Everything below is checked on the first run, and the skill offers to install on
 | LaTeX | Formula typesetting (`MathTex`) in Manim | Ask first; text and shapes work without it |
 | PixiJS, Rapier, Three.js | Particle, physics and 3D scenes | Install once with npm in a shared tools folder, copy the built file into the project's `lib/` |
 
-Versions this skill was tested with (check the current releases before relying on them): Three.js 0.187, PixiJS 8.23, Rapier 0.21 (the `-compat` npm build), HyperFrames CLI 0.9, Manim 0.22. Install the libraries once in a shared tools folder and copy the library's built JavaScript file into each project's `lib/` folder, so projects load nothing from the network.
+Versions this skill was tested with (check the current releases before relying on them): Three.js 0.187, PixiJS 8.23, Rapier 0.21 (the `-compat` npm build), HyperFrames CLI 0.9 (pin the project at 0.9.41), Manim 0.22. Install the libraries once in a shared tools folder and copy the library's built JavaScript file into each project's `lib/` folder, so projects load nothing from the network.
 
 ## Install
 

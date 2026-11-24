@@ -35,13 +35,37 @@ Install a tool only when a scene actually needs it. A project that only uses Hyp
 1. **Start with HyperFrames.** Most scenes (illustrations with narration, transitions and captions) need nothing else. The other tools are for graphics-heavy scenes only.
 2. **Formula on screen?** Use Manim.
 3. **Physics not needed?** Skip Rapier; simple motion is easier with GSAP.
-4. **Simple 2D effect?** Check the HyperFrames overlay catalog first (film grain, light leak, glitch). Use PixiJS only for custom particles.
+4. **Simple 2D effect?** Check the HyperFrames overlay catalog first (film grain, light leak, glitch) and adapt what you find to the readability rules below. Use PixiJS only for custom particles.
 5. **No 3D needed?** Skip Three.js; it is heavy. Keep previews light on low-memory machines.
 6. **Stay deterministic.** No `Date.now()`, no unseeded randomness, no network requests. Every frame is a pure function of time.
 7. **Preview before rendering.** Rendering is expensive, so stay in preview and let the user decide when to render.
 
+## Ready-made blocks: scene type to block (HyperFrames registry)
+
+Search before you write by hand. Find a block with `npx hyperframes@<version> catalog <word>` and install it with `npx hyperframes@<version> add <name>`, using the pinned version from readability rule 5 below (in our trial the `add` command had no `--yes` flag). The block names below come from the registry search; we installed and tried four of them and connected them to a project. **Blocks are a starting point, not a finished scene**: they did not meet the readability rules below, so adapt them with your own palette and type size.
+
+| What is on screen | Block |
+|---|---|
+| A number counts or rises | `count-up`, `number-wheel` (a rolling digit), `apple-money-count` |
+| Line chart (the curve is drawn) | `mk-line-graph`, `decline-chart` (a falling curve) |
+| Bar chart or comparison | `data-chart`, `animated-bar-chart`, `bar-chart-race` |
+| Chart story (data is built in order) | `chart-story` |
+| Map | `world-map`, `us-map-flow` (arcs between cities), `us-map-bubble` |
+| Captions (word by word) | `caption-pill-karaoke`, `caption-clip-wipe`, `caption-gradient-fill` (a bouncing entrance) |
+| Lower third or title | `lower-third-bild`, `hw-title`, `hw-write-title` |
+
+No ready block was found for a route line (the search came back empty); `us-map-flow` is close, and a hand-written scene can fill the gap.
+
+## Readability and memory rules (added after our trials)
+
+1. On-screen text that must be read is **at least 28 px** at 1080 px height, with contrast **at least 3:1**. The blocks we tried came in at 14-26 px, so they were adapted.
+2. **Nothing stays unchanged for longer than 3 seconds** (a deliberate hold is marked with `data-hold`).
+3. **A section is not done until `npm run check` passes without errors** (warnings are read). No "done" without measuring.
+4. Close other applications before a render or a 4K job: `hyperframes doctor` showed almost no free memory on a low-memory machine, and a render may crash when memory is low.
+5. **Pin the project's HyperFrames version** for consistency (our trials used 0.9.41); an upgrade is a separate decision.
+
 ## Setup notes
 
 - Install the libraries once in a shared tools folder and copy the library's built JavaScript file into the project's `lib/` folder, so projects load nothing from the network.
-- Versions this skill was tested with (check the current releases before relying on them): Three.js 0.187, PixiJS 8.23, Rapier 0.21 (the `-compat` npm build), HyperFrames CLI 0.9, Manim 0.22.
+- Versions this skill was tested with (check the current releases before relying on them): Three.js 0.187, PixiJS 8.23, Rapier 0.21 (the `-compat` npm build), HyperFrames CLI 0.9 (pin the project at 0.9.41), Manim 0.22.
 - `hf-seek` is the HyperFrames time-seek event: it fires with the current time (`e.detail.time`) so each frame can be drawn as a pure function of time.
